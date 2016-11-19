@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerShooting : MonoBehaviour {
 
@@ -29,7 +30,7 @@ public class PlayerShooting : MonoBehaviour {
 			// if raycast hits an object then do something...
 			if (Physics.Raycast (this.PlayerCam.position, this.PlayerCam.forward, out hit)) {
 
-				if (hit.transform.gameObject.CompareTag ("Barrels")) {
+				if (hit.transform.gameObject.CompareTag ("Enemy")) {
 					Instantiate (this.Explosion, hit.point, Quaternion.identity);
 					Destroy (hit.transform.gameObject);
 				} else {
@@ -43,4 +44,9 @@ public class PlayerShooting : MonoBehaviour {
 			this.RifleShotSound.Play();
 		}
 	}
+
+	void OnTriggerEnter(Collider other) {
+		SceneManager.LoadScene ("OutDoor");	
+	}
+
 }
